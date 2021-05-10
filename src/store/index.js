@@ -7,18 +7,37 @@ export default new Vuex.Store({
   state: {
     memo: [
       { date: '2017, 07, 03', cont: 'this is our first memo', isDone: false, time: '' },
+    ],
+    filterKind: [
+      '전체', '최신순', '오래된순'
     ]
+  },
+  getters: {
   },
   mutations: {
     addTodo(state, payload) {
       state.memo.push(payload)
     },
-    ctrDone(state, payload){
-      state.memo.isDone = !state.memo.isDone
+    changeState(state, payload) {
+      state.memo[payload].isDone = !state.memo[payload].isDone
+    },
+    removeTodo(state, payload) {
+      state.memo.splice(payload, 1)
+    },
+    sortAllItem(state, payload) {
+      if (payload === "최신순") {
+        state.memo.sort((a, b) => {
+          return b.time - a.time
+        })
+      } else if (payload === "오래된순") {
+        state.memo.sort((a, b) => {
+          return a.time - b.time
+        })
+      }
     }
   },
   actions: {
-    addTodo({context}, payload){
+    addTodo({ context }, payload) {
       this.commit('addTodo', payload)
     }
   },

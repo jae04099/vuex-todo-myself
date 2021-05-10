@@ -31,7 +31,7 @@ export default {
         }`,
         cont: this.cont,
         isDone: false,
-        time: timeStamp().time
+        time: timeStamp().time,
       };
       this.addTodo(todo);
       this.cont = null;
